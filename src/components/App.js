@@ -1,16 +1,12 @@
 import './App.scss';
+import SearchBar from './search-bar/SearchBar';
+import { Outlet } from 'react-router-dom';
 
 const App = () => {
   return (
     <div className="App">
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
+      <SearchBar/>
+      <Outlet/>
     </div>
   );
 };

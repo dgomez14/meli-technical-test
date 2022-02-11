@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './components/App';
+import ProductList from './components/product-list/ProductList';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={ <App/> }/>
+        <Route path="/" element={ <App/> }>
+          <Route index element={ <ProductList/> }/>
+          <Route path="items" element={ <ProductList/> }/>
+        </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

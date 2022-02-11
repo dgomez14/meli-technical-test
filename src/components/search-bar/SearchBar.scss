@@ -1,0 +1,15 @@
+@import '../../variables';
+
+.search-bar {
+  background: $ml-yellow;
+  padding: 5px;
+
+  #search-button {
+    cursor: pointer;
+    border: none;
+  }
+
+  #search-box {
+    border: none;
+  }
+}
