@@ -1,0 +1,58 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { fetchCategory, fetchProductDescription, fetchProductDetail } from '../../services/product.service';
+import { currencyFormat } from '../../services/utility.service';
+
+const ProductDetail = () => {
+  const { id } = useParams();
+  const [ product, setProduct ] = useState();
+  const [ productDescription, setProductDescription ] = useState();
+  const [ categoryPath, setCategoryPath ] = useState([]);
+
+  useEffect(() => {
+    fetchProductDetail(id).then(setProduct);
+    fetchProductDescription(id).then(setProductDescription);
+  }, [ id ]);
+
+  useEffect(() => {
+    product && fetchCategory(product.category_id).then(setCategoryPath);
+  }, [ product ]);
+
+  return (
+    <div className="container mt-3 pb-3">
+      <nav className="breadcrumb offset-1 ps-2 mb-0" aria-label="breadcrumb">
+        <ol className="breadcrumb">
+          {
+            categoryPath.map((category, idx) => (
+              <li key={ idx } className="breadcrumb-item active">{ category.name }</li>
+            ))
+          }
+        </ol>
+      </nav>
+
+      <div className="container bg-white rounded-1 col-10 offset-1">
+        <div className="row mx-0 col-12 mb-5">
+          <div className="img-container col-8 mt-4">
+            <img src={ product?.pictures?.shift()?.secure_url } alt={ product?.title } width="680px" height="680px"
+                 className="col-12" />
+          </div>
+          <div className="product-detail col-4">
+            <p className="mt-4 mb-2">
+              <small className="text-muted">{ product?.condition } - { product?.sold_quantity } vendidos</small>
+            </p>
+            <h5>{ product?.title }</h5>
+            <h3 className="my-4">{ product && currencyFormat(product?.price) }</h3>
+            <button className="btn btn-primary text-center col-12 me-4">Comprar</button>
+          </div>
+        </div>
+
+        <div className="product-description mx-4 pb-4 col-12">
+          <h3 className="mb-4">Descripción del producto</h3>
+          <p className="col-8 text-muted">{ productDescription?.plain_text }</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductDetail;
