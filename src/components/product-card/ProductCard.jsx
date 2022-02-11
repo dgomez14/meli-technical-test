@@ -1,15 +1,18 @@
+import { useNavigate } from 'react-router-dom';
+import { currencyFormat } from '../../services/utility.service';
+
 const ProductCard = ({ product, last }) => {
-  const currencyFormat = num => {
-    return '$ ' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-  }
+  const navigate = useNavigate();
+  const goToProduct = id => navigate(`/items/${ id }`);
 
   return (
-    <div className="card border-0 rounded-0 col-10 offset-1">
+    <div className="card border-0 rounded-0 col-10 offset-1" style={ { cursor: 'pointer' } }
+         onClick={ goToProduct.bind(null, product.id) }>
       <div className={ `${ !last ? 'border-bottom' : '' } py-3 mx-3` }>
         <div className="row g-0">
           <div className="col-md-2">
             <img src={ product.thumbnail } width="180px" height="180px" className="img-fluid rounded-start"
-                 alt={ product.title }/>
+                 alt={ product.title } />
           </div>
           <div className="col-md-8">
             <div className="card-body">

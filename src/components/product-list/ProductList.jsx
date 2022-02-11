@@ -1,48 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { fetchCategory, fetchProducts } from '../../services/product.service';
+import { findMostFrequent } from '../../services/utility.service';
 import ProductCard from '../product-card/ProductCard';
 
 const ProductList = () => {
   const [ products, setProducts ] = useState([]);
   const [ categories, setCategories ] = useState([]);
-  const [ params] = useSearchParams();
+  const [ params ] = useSearchParams();
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const query = params.get('q');
-      if (query) {
-        const searchResult = await fetch(`https://api.mercadolibre.com/sites/MLA/search?q=${ query }`)
-          .then(res => res.json())
-          .then(res => res.results)
-          .then(res => res);
-        setProducts(searchResult);
-      }
-    };
-
-    fetchProducts().then();
+    const query = params.get('q');
+    query && fetchProducts(query).then(setProducts);
   }, [ params ]);
 
   useEffect(() => {
-    const fetchCategory = async () => {
-      const categoryId = findMostFrequent(products);
-      if (categoryId) {
-        const category = await fetch(`https://api.mercadolibre.com/categories/${ categoryId }`)
-          .then(res => res.json())
-          .then(res => res.path_from_root);
-        setCategories(category.map(c => c.name));
-      }
-    };
-    fetchCategory().then();
+    const categoryId = findMostFrequent(products.map(p => p.category_id));
+    categoryId && fetchCategory(categoryId).then(setCategories);
   }, [ products ]);
-
-  const findMostFrequent = array => {
-    return array
-      .map(p => p.category_id)
-      .sort((a, b) => {
-        return array.filter(v => v === a).length - array.filter(v => v === b).length;
-      })
-      .pop();
-  };
 
   return (
     <div className="container mt-3 pb-3">
@@ -50,7 +25,7 @@ const ProductList = () => {
         <ol className="breadcrumb">
           {
             categories.map((category, idx) => (
-              <li key={ idx } className="breadcrumb-item active">{ category }</li>
+              <li key={ idx } className="breadcrumb-item active">{ category.name }</li>
             ))
           }
         </ol>
@@ -59,7 +34,7 @@ const ProductList = () => {
       <div className="container mb-3">
         {
           products.map((product, idx, { length }) => (
-            <ProductCard key={ idx } product={ product } last={ idx === length - 1 }/>
+            <ProductCard key={ idx } product={ product } last={ idx === length - 1 } />
           ))
         }
       </div>
