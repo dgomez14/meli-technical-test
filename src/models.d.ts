@@ -1,27 +1,17 @@
 export declare interface Product {
   id: string;
-  thumbnail: string;
   title: string;
-  price: string;
-  city_name: string;
-  category_id: string;
+  price: Price;
+  picture: string;
+  condition: string;
+  free_shipping: boolean;
   sold_quantity: number;
-  pictures: Picture[];
+  description: string;
+  categories: string[];
 }
 
-export declare interface Picture {
-  secure_url: string;
-}
-
-export declare interface ProductDescription {
-  plain_text: string;
-}
-
-export declare interface Category {
-  path_from_root: Path[];
-}
-
-export declare interface Path {
-  id: string;
-  name: string;
+export declare interface Price {
+  currency: string;
+  amount: number;
+  decimals: number;
 }

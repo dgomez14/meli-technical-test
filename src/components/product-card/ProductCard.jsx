@@ -11,12 +11,12 @@ const ProductCard = ({ product, last }) => {
       <div className={ `${ !last ? 'border-bottom' : '' } py-3 mx-3` }>
         <div className="row g-0">
           <div className="col-md-2">
-            <img src={ product.thumbnail } width="180px" height="180px" className="img-fluid rounded-start"
+            <img src={ product.picture } width="180px" height="180px" className="img-fluid rounded-start"
                  alt={ product.title } />
           </div>
           <div className="col-md-8">
             <div className="card-body">
-              <h5 className="card-title">{ currencyFormat(product.price) }</h5>
+              <h5 className="card-title">{ currencyFormat(product.price.amount) }</h5>
               <p className="card-text">{ product.title }</p>
             </div>
           </div>
