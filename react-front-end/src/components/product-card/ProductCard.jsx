@@ -3,7 +3,7 @@ import { currencyFormat } from '../../services/utility.service';
 
 const ProductCard = ({ product, last }) => {
   const navigate = useNavigate();
-  const goToProduct = id => navigate(`/items/${ id }`);
+  const goToProduct = id => navigate(`/items/${ id }`); // Triggers the navigation when the card is clicked
 
   return (
     <div className="card border-0 rounded-0 col-10 offset-1" style={ { cursor: 'pointer' } }
@@ -16,7 +16,7 @@ const ProductCard = ({ product, last }) => {
           </div>
           <div className="col-md-8">
             <div className="card-body">
-              <h5 className="card-title">{ currencyFormat(product.price.amount) }</h5>
+              <h5 className="card-title">{ currencyFormat(product.price.amount) }</h5> {/* Prints the price formatted */}
               <p className="card-text">{ product.title }</p>
             </div>
           </div>

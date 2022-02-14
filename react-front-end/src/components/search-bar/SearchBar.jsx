@@ -8,11 +8,18 @@ const SearchBar = () => {
   const [ search, setSearch ] = useState('');
   const navigate = useNavigate();
 
+  /*
+  * Navigates to the items list view with the user input as query parameter.
+  * Navigation is triggered when clicking the button or pressing the Enter key.
+  */
   const handleSubmit = e => {
     e.preventDefault();
     navigate(`items?q=${ search }`);
   };
 
+  /*
+  * Updates the search text on user input. This value will be used to query for items.
+  */
   const handleInput = ({ target }) => setSearch(target.value);
 
   return (

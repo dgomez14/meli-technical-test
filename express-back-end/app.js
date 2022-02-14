@@ -5,7 +5,7 @@ const itemsRouter = require('./routes/items');
 
 const app = express();
 
-app.use(cors());
+app.use(cors()); // Allows cors for all routes
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

@@ -4,14 +4,14 @@ const { formatItems } = require('./utility');
 const getItemsByQuery = async query => {
   return axios.get(`https://api.mercadolibre.com/sites/MLA/search?q=${ query }`)
     .then(async ({ data }) => {
-      const items = data.results.slice(0, 4);
-      const categories = await getCategoriesByIds(items.map(item => item.category_id));
+      const items = data.results.slice(0, 4); // Takes the first 4 elements
+      const categories = await getCategoriesByIds(items.map(item => item.category_id)); // Fetches the categories' data by its ID's
       return {
         author: {
           name: 'David',
           lastname: 'Gómez'
         },
-        categories: [ ...new Set(categories.flat(1)) ],
+        categories: [ ...new Set(categories.flat(1)) ], // Remove repeated values
         items: formatItems(items)
       };
     })
@@ -20,6 +20,7 @@ const getItemsByQuery = async query => {
 
 const getProductDetail = id => {
   return Promise.all([
+      // Fetches the item data along with its description
       axios.get(`https://api.mercadolibre.com/items/${ id }`),
       axios.get(`https://api.mercadolibre.com/items/${ id }/description`)
     ])
@@ -50,6 +51,7 @@ const getProductDetail = id => {
 
 const getCategoriesByIds = categories => {
   return Promise.all(
+    // Make a call to the API for each category and waits until is completed
     categories.map(categoryId => {
       return axios.get(`https://api.mercadolibre.com/categories/${ categoryId }`)
         .then(({ data }) => data.path_from_root.map(category => category.name))

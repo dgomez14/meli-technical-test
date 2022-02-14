@@ -10,10 +10,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={ <App /> }>
-          <Route index element={ <ProductList /> } />
-          <Route path="items/:id" element={ <ProductDetail /> } />
-          <Route path="items" exact element={ <ProductList /> } />
+        <Route path="/" element={ <App /> }> {/* Base route. Contains the search bar to be visible in all views */}
+          <Route path="items/:id" element={ <ProductDetail /> } /> {/* Item detail view */}
+          <Route path="items" element={ <ProductList /> } /> {/* Items list view */}
         </Route>
       </Routes>
     </BrowserRouter>

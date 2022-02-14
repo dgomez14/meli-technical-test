@@ -8,8 +8,8 @@ const ProductList = () => {
   const [ products, setProducts ] = useState([]);
 
   useEffect(() => {
-    const query = params.get('q');
-    query && fetchProducts(query).then(setProducts);
+    const query = params.get('q'); // Gets the query param that holds the user input
+    query && fetchProducts(query).then(setProducts); // Calls the service method that retrieves the list of items
   }, [ params ]);
 
   return (
@@ -27,7 +27,7 @@ const ProductList = () => {
       <div className="container mb-3">
         {
           products?.items?.map((product, idx, { length }) => (
-            <ProductCard key={ idx } product={ product } last={ idx === length - 1 } />
+            <ProductCard key={ idx } product={ product } last={ idx === length - 1 } /> /* Last prop is used only for styling */
           ))
         }
       </div>

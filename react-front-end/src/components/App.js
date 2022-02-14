@@ -1,4 +1,3 @@
-import './App.scss';
 import SearchBar from './search-bar/SearchBar';
 import { Outlet } from 'react-router-dom';
 

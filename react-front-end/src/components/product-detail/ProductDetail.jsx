@@ -8,7 +8,7 @@ const ProductDetail = () => {
   const [ product, setProduct ] = useState();
 
   useEffect(() => {
-    fetchProductDetail(id).then(setProduct);
+    fetchProductDetail(id).then(setProduct); // Calls the function that retrieves the item pass by URL params
   }, [ id ]);
 
   return (

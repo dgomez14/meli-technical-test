@@ -1,5 +1,6 @@
 const formatItems = items => {
   return items.map(item => {
+    // Destructures the item to extract only the needed attributes
     const { id, title, thumbnail, condition, shipping, prices, currency_id, address } = item;
     const { amount, decimals } = prices.prices.shift();
 
